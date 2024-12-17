@@ -2,18 +2,20 @@ import { useState } from "react";
 
 const allArticles = [];
 
-// stampare articoli
-// input per aggiungere nuovo articolo
-
 function App() {
 
-  const [article, setArticles] = useState(allArticles);
+  const [articles, setArticles] = useState(allArticles);
   const [newArticle, setNewArticle] = useState("");
-  
+
+  // al click su Submit, aggiornare array creando copia e aggiungendo nuovo articolo
   const handleSubmit = (event) => {
     event.preventDefault();
-    
-  }
+    const newArray = [...articles, newArticle];
+    setArticles(newArray);
+  };
+
+  // al click su Elimina, cancellare articolo stampato
+  
 
   return (
     <>
@@ -21,27 +23,37 @@ function App() {
         <div className="container">
           <h2>Lista degli articoli</h2>
           <div>
+
+            {/* riportare sul form la funzione per l'evento Submit */}
             <form action="" className="row" onSubmit={handleSubmit}>
-              <label htmlFor="">Titolo articolo</label>
+              <label htmlFor="">Aggiungi il titolo di un articolo</label>
               <div>
+
+                {/* input per aggiungere nuovo articolo con onChange */}
                 <input 
                   type="text" 
                   placeholder="Scrivi il titolo dell'articolo" 
                   className=""
-                  value={newArticle}
+                  value={newArticle}                  
                   onChange={(event) => setNewArticle(event.target.value)}
                 />
                 <button type="submit" className="btn-submit">Aggiungi</button>
               </div>              
             </form>
-            <div>Prova: {newArticle}</div>
           </div>
       
-          <div>
+          <div className="added-articles">
+            <h3>Articoli aggiunti</h3>
             <ul className="list-articles">
+
+              {/* stampare articoli */}
               {
-                article.map((curArticle, index) => (
-                  <li key={index} className="article">{curArticle}</li>
+                articles.map((curArticle, index) => (
+                  <li key={index} className="article">
+                    <p>{curArticle}</p>
+                    <button onClick={}>Elimina</button>
+                  
+                  </li>
                 ))
               }
             </ul>
